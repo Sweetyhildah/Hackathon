@@ -16,3 +16,4 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 |Item                                        | Quantity              | Description        | Links to Products                  |
 |--------------------------------------------|-----------------------|--------------------|------------------------------------|
 |MPU6050 Gyroscope and Accelerometer sensor  | 1                     |                    |https://sulkurl.com/kR7             |
+|VSDSquadron Mini RISC-V Microcontroller| 1|            |                  https://sulkurl.com/kR9|
