@@ -13,5 +13,6 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 <img width="658" alt="1" src="https://github.com/user-attachments/assets/8451520d-7c3d-4769-857c-0a64bb774ab6" />
 
 ## Components required with Bill of Materials
-|Item                   | Quantity | Description        | Links to Products |
-|-----------------------|----------|--------------------|-------------------|
+|Item                                        | Quantity              | Description        | Links to Products                  |
+|--------------------------------------------|-----------------------|--------------------|------------------------------------|
+|MPU6050 Gyroscope and Accelerometer sensor  | 1                     |                    |https://sulkurl.com/kR7             |
