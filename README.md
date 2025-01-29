@@ -20,7 +20,11 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 |BMP180 |1|Digital Barometric Pressure Sensor Module  |https://sulkurl.com/kSg|
 
 ## Table for Pin Connections
-| Component                         | VSD Squadron Mini Pin          |Description                      |
+| Component                         | VSD Squadron Mini Pin          |Description       |Item   |               
 |--------------------------------------------------------------------------------------------------------------------------------|
+
+
+|Component                                     | Quantity              | Description        | Links to Products                  |
+|--------------------------------------------|-----------------------|--------------------|------------------------------------|
     
  
