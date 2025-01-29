@@ -29,7 +29,7 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 |VCC                                         | I2C VCC                    |Power supply for I2C device (3.3V or 5V)|
 |GND                                       |  I2C GND                    |Ground (Common reference)               |
 
-## MPU6050 Gyroscope:
+### MPU6050 Gyroscope:
 
 |VSD Squadron Pin                            | MPU6050 Pin Component       |Function            |
 |--------------------------------------------|---------------------------|----------------------------------------|
@@ -38,7 +38,7 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 |VCC                                        | MPU6050 Pin VCC              |Power supply for I2C device (3.3V or 5V)|
 |GND                                        | MPU6050 Pin GND              |Ground (Common reference)               |
 
-## 	BMP180:
+### 	BMP180:
 
 |VSD Squadron Pin                            | Pressure Sensor Pin      |Function            |
 |--------------------------------------------|---------------------------|----------------------------------------|
@@ -47,14 +47,14 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 |VCC                                        | MPU6050 Pin VCC              |Power supply for I2C device (3.3V or 5V)|
 |GND                                        | MPU6050 Pin GND              |Ground (Common reference)               |
 
-## ESP8266 WiFi Module:
+### ESP8266 WiFi Module:
 
-|ESP8266 Pin                                 | VSD Squadron Pin    |Function                                     |
-|--------------------------------------------|---------------------------|----------------------------------------|
-|VCC                                         |VCC              |Serial Data Line (Data transfer)                  |
-|GND                                         |GND               |Serial Data Line (Data transfer)                 |
-|TX (Transmit)                               |TX             |Serial Data Line (Data transfer)                    |
-|RX (Receive)                                 |RX              |Serial Data Line (Data transfer)                  |
+|ESP8266 Pin                                        | VSD Squadron Pin    |Function                                     |
+|--------------------------------------------------|---------------------------|----------------------------------------|
+|VCC                                                 |VCC              |Serial Data Line (Data transfer)                  |
+|GND                                                  |GND               |Serial Data Line (Data transfer)                 |
+|TX (Transmit)                                        |TX             |Serial Data Line (Data transfer)                    |
+|RX (Receive)                                         |RX              |Serial Data Line (Data transfer)                  |
 
     
     
