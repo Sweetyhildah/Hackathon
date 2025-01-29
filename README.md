@@ -13,18 +13,20 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 <img width="658" alt="1" src="https://github.com/user-attachments/assets/8451520d-7c3d-4769-857c-0a64bb774ab6" />
 
 ## Components required with Bill of Materials
-|Item                                        | Quantity              | Description        | Links to Products                  |
-|--------------------------------------------|-----------------------|--------------------|------------------------------------|
-|MPU6050   | 1                     |  Gyroscope and Accelerometer sensor                  |https://sulkurl.com/kR7             |
+|Item                                        | Quantity              | Description                          | Links to Products                  |
+|--------------------------------------------|-----------------------|--------------------------------------|------------------------------------|
+|MPU6050                                     | 1                     |  Gyroscope and Accelerometer sensor   |https://sulkurl.com/kR7            |
 |VSDSquadron Mini RISC-V | 1|  Microcontroller          |                  https://sulkurl.com/kR9|
 |BMP180 |1|Digital Barometric Pressure Sensor Module  |https://sulkurl.com/kSg|
 
 ## Table for Pin Connections
-| Component                         | VSD Squadron Mini Pin          |Description       |Item   |               
-|--------------------------------------------------------------------------------------------------------------------------------|
+     
+|VSD Squadron Pin                            | I2C Pin               |Function            |
+|--------------------------------------------|-----------------------|----------------------------------------|
+|SDA (A4)                                    |SDA                    |Serial Data Line (Data transfer)        |
+|SCL (A5)                                    |SCL                    |Serial Clock Line (Clock signal)        |
+|VCC                                         |VCC                    |Power supply for I2C device (3.3V or 5V)|
+|SCL (A5)                                    |SCL                    |Ground (Common reference)               |
 
-
-|Component                                     | Quantity              | Description        | Links to Products                  |
-|--------------------------------------------|-----------------------|--------------------|------------------------------------|
     
  
