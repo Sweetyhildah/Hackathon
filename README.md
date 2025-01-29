@@ -23,4 +23,6 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 | Component                          | VSD Squadron Mini Pin          |Description                      |
 |--------------------------------------------------------------------------------------------------------|
     
- 
+ |MPU6050   | 1                     |  Gyroscope and Accelerometer sensor                  |https://sulkurl.com/kR7             |
+|VSDSquadron Mini RISC-V | 1|  Microcontroller          |                  https://sulkurl.com/kR9|
+|BMP180 |1|Digital Barometric Pressure Sensor Module  |https://sulkurl.com/kSg|
