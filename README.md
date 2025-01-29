@@ -21,12 +21,40 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 
 ## Table for Pin Connections
      
-|VSD Squadron Pin                            | I2C Pin               |Function            |
+|VSD Squadron Pin                            | I2C Pin Component               |Function            |
 |--------------------------------------------|-----------------------|----------------------------------------|
-|SDA (A4)                                    |SDA                    |Serial Data Line (Data transfer)        |
-|SCL (A5)                                    |SCL                    |Serial Clock Line (Clock signal)        |
-|VCC                                         |VCC                    |Power supply for I2C device (3.3V or 5V)|
-|SCL (A5)                                    |SCL                    |Ground (Common reference)               |
+|SDA (A4)                                    | I2C SDA                    |Serial Data Line (Data transfer)        |
+|SCL (A5)                                    | I2C SCL                    |Serial Clock Line (Clock signal)        |
+|VCC                                         | I2C VCC                    |Power supply for I2C device (3.3V or 5V)|
+|GND                                       |  I2C GND                    |Ground (Common reference)               |
 
+
+
+|VSD Squadron Pin                            | MPU6050 Pin Component       |Function            |
+|--------------------------------------------|---------------------------|----------------------------------------|
+|SDA (A4)                                   |MPU6050 Pin SDA               |Serial Data Line (Data transfer)       |
+|SCL (A5))                                  | MPU6050 Pin SCL              |Serial Clock Line (Clock signal        |
+|VCC                                        | MPU6050 Pin VCC              |Power supply for I2C device (3.3V or 5V)|
+|GND                                        | MPU6050 Pin GND              |Ground (Common reference)               |
+
+|VSD Squadron Pin                            | Pressure Sensor Pin      |Function            |
+|--------------------------------------------|---------------------------|----------------------------------------|
+|SDA (A4)                                   |MPU6050 Pin SDA               |Serial Data Line (Data transfer)       |
+|SCL (A5))                                  | MPU6050 Pin SCL              |Serial Clock Line (Clock signal        |
+|VCC                                        | MPU6050 Pin VCC              |Power supply for I2C device (3.3V or 5V)|
+|GND                                        | MPU6050 Pin GND              |Ground (Common reference)               |
+
+|ESP8266 Pin                                 | VSD Squadron Pin    |Function                                     |
+|--------------------------------------------|---------------------------|----------------------------------------|
+|VCC                                         |VCC              |Serial Data Line (Data transfer)                  |
+|GND                                         |GND               |Serial Data Line (Data transfer)                 |
+|TX (Transmit)                               |TX             |Serial Data Line (Data transfer)                    |
+|RX (Receive)                                 |RX              |Serial Data Line (Data transfer)                  |
+
+    
+    
+    
+
+    
     
  
