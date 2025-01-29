@@ -21,6 +21,6 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 
 ## Table for Pin Connections
 | Component                          | VSD Squadron Mini Pin          |Description                      |
-|-------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------|
     
  
