@@ -57,8 +57,11 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 |RX (Receive)                                         |RX              |Serial Data Line (Data transfer)                  |
 
     
+## Pinout Diagram
+
+
     
-    
+![2](https://github.com/user-attachments/assets/8a75f0cd-7507-4f94-a562-39140cf85bfa)
 
     
     
