@@ -21,11 +21,13 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
 
 ## Table for Pin Connections
    	VSD Squadron (Microcontroller):
-| VSD Squadron Pin |
-|SDA (A4)|
-|SCL (A5)|
-|VC|
-|GND|
+    
+| VSD Squadron Pin                           |
+|--------------------------------------------|-----------------------|--------------------|------------------------------------|
+|SDA (A4)                                    |
+|SCL (A5)                                    |
+|VC                                          |
+|GND                                         |
 
     
  
