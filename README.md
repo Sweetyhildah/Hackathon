@@ -12,6 +12,16 @@ The IoT-based Real-Time Automobile Dashboard, powered by the innovative VSD Squa
 The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integrates advanced technology to monitor key vehicle parameters like speed, fuel levels, engine temperature, and location. Using the I2C protocol, the system ensures efficient communication between sensors, displays, and IoT modules. The VSD Squadron processes the data and displays it in real-time on a dashboard, while also sending it to the cloud for remote monitoring. With GPS integration, alerts for anomalies, and cloud connectivity, the system enhances vehicle safety, performance, and management, offering a smarter, more connected driving experience.
 <img width="658" alt="1" src="https://github.com/user-attachments/assets/8451520d-7c3d-4769-857c-0a64bb774ab6" />
 
+## Key Features and Benifits of the Product
+<p align="justify">
+The selected text outlines the proposed solution for a real-time Tire Pressure Monitoring System (TPMS). ​ This system aims to control various performance metrics of an automobile, specifically focusing on air pressure in tires, wheel alignment, and wheel balancing. ​ The key features of this solution include:
+
+##### Real-time monitoring: Continuously tracks tire pressure and other related metrics in real-time. ​
+##### Simplified communication: Utilizes a streamlined communication protocol to reduce complexity. ​
+##### User-friendly interface: Ensures that the system is easy to use and interact with for the end-users.
+
+
+
 ## Components required with Bill of Materials
 |Item                                        | Quantity             | Description                          | Links to Products                  |
 |--------------------------------------------|---------------------|--------------------------------------|------------------------------------|
