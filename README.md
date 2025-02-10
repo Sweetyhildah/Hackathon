@@ -63,6 +63,128 @@ The IoT-based Real-Time Automobile Dashboard powered by the VSD Squadron integra
     
 ![2](https://github.com/user-attachments/assets/8a75f0cd-7507-4f94-a562-39140cf85bfa)
 
+
+
+## Source code 
+
+```
+#include <math.h>
+#include <LiquidCrystal_I2C.h> // Driver Library for the LCD Module
+#include <Wire.h>
+#include <Adafruit_BMP085.h>
+#define seaLevelPressure_hPa 1013.25
+Adafruit_BMP085 bmp;
+
+const int x_out = A1; /* connect x_out of module to A1 of UNO board */
+const int y_out = A2; /* connect y_out of module to A2 of UNO board */
+const int z_out = A3; /* connect z_out of module to A3 of UNO board */
+
+
+LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F,16,2);
+
+
+float Pressure,temperature_C,temperature_F;
+
+
+void lcd_s(String lcd_status ,float lcd_pressure){
+
+  lcd.setCursor(0,0);
+  lcd.print("Status:");
+  lcd.print(lcd_status);
+  lcd.setCursor(0,1);
+  lcd.print("Press:");
+  lcd.print(lcd_pressure);
+  lcd.print("psi");
+}
+
+void gyro() {
+  int x_adc_value, y_adc_value, z_adc_value; 
+  double x_g_value, y_g_value, z_g_value;
+  double roll, pitch, yaw;
+  x_adc_value = analogRead(x_out); /* Digital value of voltage on x_out pin */ 
+  y_adc_value = analogRead(y_out); /* Digital value of voltage on y_out pin */ 
+  z_adc_value = analogRead(z_out); /* Digital value of voltage on z_out pin */ 
+  Serial.print("x = ");
+  Serial.print(x_adc_value);
+  Serial.print("\t\t");
+  Serial.print("y = ");
+  Serial.print(y_adc_value);
+  Serial.print("\t\t");
+  Serial.print("z = ");
+  Serial.print(z_adc_value);
+  Serial.print("\t\t");
+  //delay(100);
+  
+  x_g_value = ( ( ( (double)(x_adc_value * 5)/1024) - 1.65 ) / 0.330 ); /* Acceleration in x-direction in g units */ 
+  y_g_value = ( ( ( (double)(y_adc_value * 5)/1024) - 1.65 ) / 0.330 ); /* Acceleration in y-direction in g units */ 
+  z_g_value = ( ( ( (double)(z_adc_value * 5)/1024) - 1.80 ) / 0.330 ); /* Acceleration in z-direction in g units */ 
+
+  roll = ( ( (atan2(y_g_value,z_g_value) * 180) / 3.14 ) + 180 ); /* Formula for roll */
+  pitch = ( ( (atan2(z_g_value,x_g_value) * 180) / 3.14 ) + 180 ); /* Formula for pitch */
+  yaw = ( ( (atan2(x_g_value,y_g_value) * 180) / 3.14 ) + 180 ); /* Formula for yaw */
+  /* Not possible to measure yaw using accelerometer. Gyroscope must be used if yaw is also required */
+
+  Serial.print("Roll = ");
+  Serial.print(roll);
+  Serial.print("\t");
+  Serial.print("Pitch = ");
+  Serial.print(pitch);
+  Serial.print("\t");
+  Serial.print("Yaw = ");
+  Serial.print(yaw);
+  Serial.print("\n\n");
+  delay(1000);
+}
+void pressure() {
+    //Serial.print("Temperature = ");
+   // float t = bmp.readTemperature();
+    //Serial.print(t);
+    //Serial.print(bmp.readTemperature()); 
+    //Serial.println(" *C");
+
+    Serial.print("Pressure = ");
+    float pressure = bmp.readPressure();
+    float  p = pressure / 6894.76;
+    Serial.print(p);
+    Serial.println(" Psi");
+      String s;
+ 
+  if((p > 14))
+  {
+    s = "Safe";
+    //Serial.println("Risk");
+  }
+  else 
+  {
+     s = "Risk";
+    //Serial.println("Safe");
+  }
+  Serial.println("Status : "+ s);
+
+    Serial.println();
+    delay(500);
+    lcd_s(s,p);
+}
+
+void setup(){
+  Serial.begin(115200);
+ // wifi();
+  lcd.init();          // Initiate the LCD module
+  lcd.backlight();     // Turn on the backlight
+  if (!bmp.begin()) {
+    Serial.println("Could not find a valid BMP085 sensor, check wiring!");
+    while (1) {}
+  }
+}
+ 
+void loop()
+{
+ // dht_s();
+    gyro();
+    pressure();
+  //thing();l
+}
+
     
     
  
