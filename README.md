@@ -20,6 +20,19 @@ The selected text outlines the proposed solution for a real-time Tire Pressure M
 ##### Simplified communication: Utilizes a streamlined communication protocol to reduce complexity. ​
 ##### User-friendly interface: Ensures that the system is easy to use and interact with for the end-users.
 
+## Technical Approach
+<p align="justify">
+  
+A RISC-V architecture is used for complete functioning of the system.
+
+**Hardware:** Sensor for measuring pressure (BMP180), VSD Squadron Mini, LCD Display, ESP32 (Wi-Fi module)
+
+**Software:** VS Code, Platform IO, CH32V platform 
+
+**Communication:** I2C for data transmission
+
+**Interface:** I2C interface to connect to display, Thingspeak IoT cloud platform to aggregate, visualize and analyze live data stream in the cloud.
+
 
 
 ## Components required with Bill of Materials
@@ -75,7 +88,7 @@ The selected text outlines the proposed solution for a real-time Tire Pressure M
 
 
 
-## Source code 
+## Source code with Arduino IDE 
 
 ```
 #include <math.h>
@@ -197,9 +210,14 @@ void loop()
 ```
 
 
-## Demonstation Vedio
+## Demonstation Video with Arduino IDE
 
 https://drive.google.com/file/d/10zW7UOl_aDTQp0_erywTDyBhxi6431aL/view?usp=sharing
+
+## Demonstation Video with VSDSquadron Mini RISC-V Microcontroller Board
+
+https://drive.google.com/file/d/113H-x_Sz_JgadCqJOI0I7lY1-Dg_z7pm/view?usp=sharing
+
 
 
 ## Conclusion
