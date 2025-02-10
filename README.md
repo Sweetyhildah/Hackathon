@@ -191,6 +191,10 @@ void loop()
 
 https://drive.google.com/file/d/10zW7UOl_aDTQp0_erywTDyBhxi6431aL/view?usp=sharing
 
+
+## Conclusion
+<p align="justify">
+The system designed and developed as part of this project provides a comprehensive solution for monitoring and maintaining optimal tire pressure which leads to wheel balancing and wheel alignment. This project demonstrates the potential for technology to improve vehicle safety, efficiency, and performance. Its successful implementation can have a significant impact on the automotive industry.
     
     
  
