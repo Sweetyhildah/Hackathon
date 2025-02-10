@@ -83,8 +83,11 @@ A RISC-V architecture is used for complete functioning of the system.
 ## Pinout Diagram
 
 
+
     
 ![2](https://github.com/user-attachments/assets/8a75f0cd-7507-4f94-a562-39140cf85bfa)
+
+
 
 
 
