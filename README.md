@@ -209,6 +209,263 @@ void loop()
 }
 ```
 
+## Source code with VSDSquadron Mini RISC-V Microcontroller
+
+```
+// Defining the SDA and SCL Pins for I2C Communication
+#include <debug.h>
+#include <ch32v00x.h>
+#include <ch32v00x_gpio.h>
+
+// Defining the SDA and SCL Pins for I2C Communication
+#define SDA_PIN GPIO_Pin_1
+#define SCL_PIN GPIO_Pin_2
+
+
+// Defining the LCD Address
+#define LCD_Address 0x27
+
+// BMP180 I2C Address
+#define BMP180_Address 0x77
+
+void lcd_send_cmd(unsigned char cmd);
+void lcd_send_data(unsigned char data);
+void lcd_send_str(unsigned char *str);
+void lcd_init(void);
+void delay_ms(unsigned int ms);
+void i2c_start(void);
+void i2c_stop(void);
+void i2c_write(unsigned char dat);
+void i2c_ACK(void);
+
+int32_t bmp180_read_pressure(void);
+void bmp180_write_register(unsigned char reg, unsigned char value);
+unsigned char bmp180_read_register(unsigned char reg);
+uint16_t bmp180_read_16bit_register(unsigned char reg);
+
+// Function to produce a delay
+void delay_ms(unsigned int ms) {
+    for (unsigned int i = 0; i < ms; i++) {
+        for (unsigned int j = 0; j < 8000; j++) {
+            __NOP();
+        }
+    }
+}
+
+// Function to initialize GPIO pins
+void GPIO_INIT(void) {
+    GPIO_InitTypeDef GPIO_InitStructure;
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+
+    // Initialize SDA and SCL pins for I2C
+    GPIO_InitStructure.GPIO_Pin = SDA_PIN | SCL_PIN;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOC, &GPIO_InitStructure);
+}
+
+// Function to write a byte of data to the I2C bus
+void i2c_write(unsigned char dat) {
+    for (unsigned char i = 0; i < 8; i++) {
+        GPIO_WriteBit(GPIOC, SCL_PIN, Bit_RESET);
+        if (dat & (0x80 >> i)) {
+            GPIO_WriteBit(GPIOC, SDA_PIN, Bit_SET);
+        } else {
+            GPIO_WriteBit(GPIOC, SDA_PIN, Bit_RESET);
+        }
+        GPIO_WriteBit(GPIOC, SCL_PIN, Bit_SET);
+    }
+    GPIO_WriteBit(GPIOC, SCL_PIN, Bit_RESET);
+}
+
+// Function to start I2C communication
+void i2c_start(void) {
+    GPIO_WriteBit(GPIOC, SCL_PIN, Bit_SET);
+    GPIO_WriteBit(GPIOC, SDA_PIN, Bit_SET);
+    delay_ms(1);
+    GPIO_WriteBit(GPIOC, SDA_PIN, Bit_RESET);
+    delay_ms(1);
+    GPIO_WriteBit(GPIOC, SCL_PIN, Bit_RESET);
+}
+
+// Function to stop I2C communication
+void i2c_stop(void) {
+    GPIO_WriteBit(GPIOC, SDA_PIN, Bit_RESET);
+    GPIO_WriteBit(GPIOC, SCL_PIN, Bit_RESET);
+    delay_ms(1);
+    GPIO_WriteBit(GPIOC, SCL_PIN, Bit_SET);
+    delay_ms(1);
+    GPIO_WriteBit(GPIOC, SDA_PIN, Bit_SET);
+}
+
+// Function to wait for an acknowledgment bit
+void i2c_ACK(void) {
+    GPIO_WriteBit(GPIOC, SCL_PIN, Bit_RESET);
+    GPIO_WriteBit(GPIOC, SDA_PIN, Bit_SET);
+    GPIO_WriteBit(GPIOC, SCL_PIN, Bit_SET);
+    while(GPIO_ReadInputDataBit(GPIOC, SDA_PIN));
+    GPIO_WriteBit(GPIOC, SCL_PIN, Bit_RESET);
+}
+
+// Function to send a command to the LCD
+void lcd_send_cmd(unsigned char cmd) {
+    unsigned char cmd_l = (cmd << 4) & 0xf0;
+    unsigned char cmd_u = cmd & 0xf0;
+
+    i2c_start();
+    i2c_write(LCD_Address << 1);
+    i2c_ACK();
+    i2c_write(cmd_u | 0x0C);
+    i2c_ACK();
+    i2c_write(cmd_u | 0x08);
+    i2c_ACK();
+    delay_ms(1);
+    i2c_write(cmd_l | 0x0C);
+    i2c_ACK();
+    i2c_write(cmd_l | 0x08);
+    i2c_ACK();
+    delay_ms(1);
+    i2c_stop();
+}
+
+// Function to send data to the LCD
+void lcd_send_data(unsigned char data) {
+    unsigned char data_l = (data << 4) & 0xf0;
+    unsigned char data_u = data & 0xf0;
+
+    i2c_start();
+    i2c_write(LCD_Address << 1);
+    i2c_ACK();
+    i2c_write(data_u | 0x0D);
+    i2c_ACK();
+    i2c_write(data_u | 0x09);
+    i2c_ACK();
+    delay_ms(1);
+    i2c_write(data_l | 0x0D);
+    i2c_ACK();
+    i2c_write(data_l | 0x09);
+    i2c_ACK();
+    delay_ms(1);
+    i2c_stop();
+}
+
+// Function to send a string to the LCD
+void lcd_send_str(unsigned char *str) {
+    while (*str) {
+        lcd_send_data(*str++);
+    }
+}
+
+// Function to initialize the LCD
+void lcd_init(void) {
+    lcd_send_cmd(0x02); // Return home
+    lcd_send_cmd(0x28); // 4-bit mode, 2 lines, 5x7 dots
+    lcd_send_cmd(0x0C); // Display On, cursor off
+    lcd_send_cmd(0x06); // Increment cursor (shift cursor to right)
+    lcd_send_cmd(0x01); // Clear display
+    delay_ms(20);       // Wait for the LCD to process the clear command
+}
+
+// Function to write a value to a BMP180 register
+void bmp180_write_register(unsigned char reg, unsigned char value) {
+    i2c_start();
+    i2c_write(BMP180_Address << 1);
+    i2c_ACK();
+    i2c_write(reg);
+    i2c_ACK();
+    i2c_write(value);
+    i2c_ACK();
+    i2c_stop();
+}
+
+// Function to read a value from a BMP180 register
+unsigned char bmp180_read_register(unsigned char reg) {
+    unsigned char value;
+    i2c_start();
+    i2c_write(BMP180_Address << 1);
+    i2c_ACK();
+    i2c_write(reg);
+    i2c_ACK();
+    i2c_start();
+    i2c_write((BMP180_Address << 1) | 0x01);
+    i2c_ACK();
+    value = GPIO_ReadInputDataBit(GPIOC, SDA_PIN);
+    i2c_stop();
+    return value;
+}
+
+// Function to read a 16-bit value from a BMP180 register
+uint16_t bmp180_read_16bit_register(unsigned char reg) {
+    uint16_t value;
+    i2c_start();
+    i2c_write(BMP180_Address << 1);
+    i2c_ACK();
+    i2c_write(reg);
+    i2c_ACK();
+    i2c_start();
+    i2c_write((BMP180_Address << 1) | 0x01);
+    i2c_ACK();
+    value = (bmp180_read_register(reg) << 8) | bmp180_read_register(reg + 1);
+    i2c_stop();
+    return value;
+}
+    
+// Function to read pressure from BMP180
+int32_t bmp180_read_pressure(void) {
+    int32_t up;
+    bmp180_write_register(0xF4, 0x34 + (3 << 6));
+    delay_ms(5);
+    up = bmp180_read_16bit_register(0xF6);
+    return up;
+}
+
+int main(void) {
+    GPIO_INIT(); // Initialize GPIO pins
+    lcd_init();  // Initialize the LCD Display
+    delay_ms(20);
+    
+    
+    
+    // Print "Pressure" on the LCD 
+    while (1) {
+        
+        int32_t pressure = bmp180_read_pressure();
+        
+        lcd_send_cmd(0x80); // Move the cursor to first row, first column
+        delay_ms(20);
+        lcd_send_str((unsigned char*)"Press: ");
+        
+       // lcd_send_data((pressure) + '0');
+       lcd_send_data((pressure / 100) + '0');
+       lcd_send_data(((pressure % 100) / 10) + '0');
+       lcd_send_data((pressure % 10) + '0');
+        lcd_send_str((unsigned char*)" hPa");
+        lcd_send_cmd(0xC0); // Move the cursor to second row, first column
+        lcd_send_str((unsigned char*)"Status:");
+
+                // Define pressure thresholds in hPa
+        
+        float safe_max_PSI = 256.0; 
+    
+        // Check pressure conditions
+        if (pressure > safe_max_PSI) {  
+            //lcd_send_cmd(0x80); 
+            lcd_send_str((unsigned char*)"Safe");
+    
+        } else if (pressure < safe_max_PSI) {  
+           // lcd_send_cmd(0x80); 
+            lcd_send_str((unsigned char*)"Risk");
+
+        
+        delay_ms(1000);
+        lcd_send_cmd(0x01); // Clear the display
+        delay_ms(1000);
+    }
+}
+}
+        
+```
+
 
 ## Demonstation Video with Arduino IDE
 
